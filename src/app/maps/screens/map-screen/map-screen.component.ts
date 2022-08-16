@@ -9,7 +9,10 @@ import { PlacesServicesService } from '../../services/places-services.service';
 export class MapScreenComponent implements OnInit {
 
   constructor(private placesService: PlacesServicesService) { }
-  
+   
+  get isUserLocationReady() {
+    return this.placesService.isUserLocationReady;
+  }
 
   ngOnInit(): void {
   }
