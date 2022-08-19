@@ -10,8 +10,8 @@ Mapboxgl.accessToken =
   'pk.eyJ1IjoidmhpenEiLCJhIjoiY2wzZHY2OHkxMDU0NzNqcXl1aHo0a3NjMSJ9.0xYREArve0kMa35wFPf6Gg';
 
 if (!navigator.geolocation) {
-  alert('Browser doesnt support geolocatio');
-  throw new Error('Browser doesnt support geolocatio');
+  alert('Browser doesnt support geolocation');
+  throw new Error('Browser doesnt support geolocation');
 } 
 
 if (environment.production) {

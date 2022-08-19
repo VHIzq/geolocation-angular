@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { PlacesServicesService } from '../../services/places-services.service';
-import { Map } from 'mapbox-gl';
+import { Map, Popup, Marker } from 'mapbox-gl';
+import { MapService, PlacesServicesService } from '../../services';
 
 @Component({
   selector: 'app-map-view',
@@ -12,7 +12,10 @@ export class MapViewComponent implements AfterViewInit {
   @ViewChild('mapDiv')
   mapDivElement!: ElementRef
     
-  constructor(private placesService: PlacesServicesService) { }
+  constructor(
+    private placesService: PlacesServicesService,
+    private mapService: MapService
+  ) { }
 
   ngAfterViewInit(): void {
     if (!this.placesService.userLocation) throw Error('There is not placeService.userLocation')
@@ -20,11 +23,22 @@ export class MapViewComponent implements AfterViewInit {
 
     const map = new Map({
       container: this.mapDivElement.nativeElement,
-      style: 'mapbox://styles/mapbox/dark-v10', // style URL
-      center: this.placesService.userLocation, // starting position [lng, lat]
+      style: 'mapbox://styles/mapbox/dark-v10', 
+      center: this.placesService.userLocation,
       zoom: 14, // starting zoom
     });
 
-    console.log(this.placesService.userLocation);
+    const popUp = new Popup()
+      .setHTML(`
+        <h6>I'm here</h6>
+        <span>In this world place</span>
+      `);
+    
+    new Marker({ color: 'red' })
+      .setLngLat(this.placesService.userLocation)
+      .setPopup(popUp)
+      .addTo(map)
+    
+    this.mapService.setMap(map);
   }
 }
