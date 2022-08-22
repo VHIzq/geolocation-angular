@@ -1,21 +1,25 @@
-<div 
-  class="alert alert-primaryv mt-2 text-center"
-  >
-    <h6>Loading</h6>
-    <span>Wait, please...</span>
+<div *ngIf="isLoadingPlaces" class="alert alert-primaryv mt-2 text-center">
+  <h6>Loading</h6>
+  <span>Wait, please...</span>
 </div>
 
-<ul class="list-group mt-2">
-  <li 
+<ul class="list-group mt-2" *ngIf="places.length > 0">
+  <li
+    *ngFor="let place of places"
     class="list-group-item list-group-item-action"
+    [class.active]="place.id === selectedId"
     pointer
-    ></li>
-    <h6>Place</h6>
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel, tempora ?</p>
+    (click)="flyTo(place)"
+  >
+  <h6>{{place.text_en}} </h6>
+  <p>{{place.place_name}} </p>
+  <button 
+  class="btn btn-sm ybtn-outline-primary"
+  [ngClass]=" (place.id === selectedId) ? 'btn-outline-light' : 'btn-outluine-primary'"
+  
+  >
+  Addresses
+  </button>
+</li>
 
-    <button 
-      class="btn btn-sm ybtn-outline-primary"
-      >
-        Addresses
-    </button>
 </ul>
