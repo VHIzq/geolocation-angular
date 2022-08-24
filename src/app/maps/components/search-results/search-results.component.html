@@ -15,6 +15,7 @@
   <p>{{place.place_name}} </p>
   <button 
   class="btn btn-sm ybtn-outline-primary"
+  (click)="getDirections(place)"
   [ngClass]=" (place.id === selectedId) ? 'btn-outline-light' : 'btn-outluine-primary'"
   
   >
